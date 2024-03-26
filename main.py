@@ -1,10 +1,15 @@
-import smtplib
-import ssl
-import pandas as pd
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from gooey import Gooey, GooeyParser
+from dotenv import load_dotenv
+import pandas as pd
+import smtplib
+import ssl
 import sys
+import os
+
+# Load environment variables from .env file
+load_dotenv() 
 
 def reading_excel_file(filename):
     if filename == "" or filename is None:
@@ -22,8 +27,8 @@ def reading_excel_file(filename):
         sending_mail(email, subject, content)
 
 def sending_mail(receiver_email, subject, message_body):
-    sender_email = "massabisgood@gmail.com"
-    password = "hyfq znms beji abpf"
+    sender_email = os.getenv("sender_email")
+    password = os.getenv("password")
 
     message = MIMEMultipart()
     message["Subject"] = subject
